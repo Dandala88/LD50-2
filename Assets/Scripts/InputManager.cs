@@ -8,15 +8,20 @@ public class InputManager : MonoBehaviour
 {
     public PlayerController player;
     public Vector2 mousePos;
+    public float rollMagnitudeThreshold;
+    public float rollCooldown;
+
+    [HideInInspector]
     public SoundRipple currentRipple;
 
     private bool holdingPlace;
-    private float placeHoldTime;
+    private bool coolingDown;
+    private float holdingTime;
 
-    public void Update()
+    private void Update()
     {
-        if (holdingPlace)
-            placeHoldTime += Time.deltaTime;
+        if(holdingPlace)
+            holdingTime += Time.deltaTime;
     }
 
     public void Place(CallbackContext context)
@@ -24,14 +29,13 @@ public class InputManager : MonoBehaviour
         if(context.started)
         {
             holdingPlace = true;
-            placeHoldTime = 0;
-            currentRipple = player.Place(mousePos);
         }
 
         if(context.canceled)
         {
             holdingPlace = false;
-            currentRipple.Release();
+            player.Place(mousePos, 1, holdingTime);
+            holdingTime = 0;
         }
     }
 
@@ -43,5 +47,26 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void Roll(CallbackContext context)
+    {
+        if(context.performed)
+        {
+            Vector2 mouseMove = context.ReadValue<Vector2>();
+            if (mouseMove.magnitude > rollMagnitudeThreshold)
+            {
+                if (holdingPlace && !coolingDown)
+                {
+                    player.Place(mousePos, mouseMove.y, mouseMove.x);
+                    StartCoroutine(RollCooldown());
+                }
+            }
+        }
+    }
 
+    private IEnumerator RollCooldown()
+    {
+        coolingDown = true;
+        yield return new WaitForSeconds(rollCooldown);
+        coolingDown = false;
+    }
 }

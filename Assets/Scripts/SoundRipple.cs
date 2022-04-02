@@ -5,10 +5,13 @@ using UnityEngine;
 public class SoundRipple : MonoBehaviour
 {
     public int sampleFreq = 44000;
-    public float frequency = 880;
+    public float frequency = 440;
     public int seconds;
     public float curveFactor;
     public float volumeCurve;
+    public float magnitudeFactor;
+    public float minDelay;
+    public float maxDelay;
     public float delay;
     public float decay;
     public float dry;
@@ -21,45 +24,40 @@ public class SoundRipple : MonoBehaviour
 
     AudioSource aud;
     LineRenderer circle;
-    bool released;
-    float holdingTime;
+    float baseFrequency;
 
     void Awake()
     {
         aud = GetComponent<AudioSource>();
         circle = GetComponentInChildren<LineRenderer>();
-    }
-
-    public void Start()
-    {
-        circle.enabled = false;
+        baseFrequency = frequency;
+        RippleManager.ripples.Add(this);
+        circle.colorGradient = RandomColorGenerator();
     }
 
     public void Update()
     {
-        if(!released)
-        {
-            holdingTime += Time.deltaTime;
-        }
-        else
-        {
-            radius += growthSpeed * Time.deltaTime;
-            DrawCircle(transform.position, 100, radius);
-            aud.volume -= Time.deltaTime * volumeCurve;
-        }
+        radius += growthSpeed * Time.deltaTime;
+        DrawCircle(transform.position, 100, radius);
+        aud.volume -= Time.deltaTime / (seconds * volumeCurve);
     }
 
-    public void Release()
+    public void Release(float magnitude, float holdingTime)
     {
-        circle.enabled = true;
-        released = true;
-        delay /= holdingTime;
+        growthSpeed = magnitude * magnitudeFactor;
+        if (magnitude == 1)
+            frequency = baseFrequency;
+        else
+            frequency = baseFrequency * magnitude * magnitudeFactor;
+        delay = Mathf.Clamp(delay / holdingTime, minDelay, maxDelay);
         CreateSound();
     }
 
 
     public void CreateSound()
     {
+
+        StartCoroutine(WaitForDeathCoroutine());
         int finalSamples = sampleFreq * seconds;
 
         float[] samples = new float[finalSamples];
@@ -79,13 +77,11 @@ public class SoundRipple : MonoBehaviour
         filter.dryMix = dry;
         filter.wetMix = wet;
         aud.Play();
-        StartCoroutine(WaitForDeathCoroutine());
     }
 
     private IEnumerator WaitForDeathCoroutine()
-    {
-
-        yield return new WaitForSeconds(seconds);
+    {yield return new WaitForSeconds(seconds);
+        RippleManager.ripples.Remove(this);
         Destroy(gameObject);
     }
 
@@ -104,6 +100,23 @@ public class SoundRipple : MonoBehaviour
             Vector3 currentPosition = new Vector3(x, y, 0) + center;
             circle.SetPosition(i, currentPosition);
         }
+    }
+
+    private Gradient RandomColorGenerator()
+    {
+        Gradient randGradient = new Gradient();
+        GradientColorKey[] cKeys = new GradientColorKey[2];
+        cKeys[0].color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        cKeys[0].time = 0f;
+        cKeys[1].color = cKeys[0].color;
+        cKeys[1].time = 1f;
+        GradientAlphaKey[] aKeys = new GradientAlphaKey[2];
+        aKeys[0].alpha = 1f;
+        aKeys[0].time = 0;
+        aKeys[1].alpha = 1f;
+        aKeys[1].time = 1;
+        randGradient.SetKeys(cKeys, aKeys);
+        return randGradient;
     }
 
 
