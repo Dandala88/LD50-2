@@ -31,6 +31,7 @@ public class InputManager : MonoBehaviour
         if(context.canceled)
         {
             holdingPlace = false;
+            currentRipple.Release();
         }
     }
 

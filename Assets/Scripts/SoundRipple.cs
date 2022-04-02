@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundRipple : MonoBehaviour
 {
     public int sampleFreq = 44000;
-    public float frequency = 440;
+    public float frequency = 880;
     public int seconds;
     public float curveFactor;
     public float delay;
@@ -13,25 +13,50 @@ public class SoundRipple : MonoBehaviour
     public float dry;
     public float wet;
     public float growthSpeed;
+    public int circleSteps = 100;
+
+    [HideInInspector]
+    public float radius;
+
     AudioSource aud;
     LineRenderer circle;
-    float radius;
+    CircleCollider2D circleCollider;
+    bool released;
+    float holdingTime;
 
     void Awake()
     {
         aud = GetComponent<AudioSource>();
+        circleCollider = GetComponent<CircleCollider2D>();
         circle = GetComponentInChildren<LineRenderer>();
     }
 
     public void Start()
     {
-        CreateSound();
+        circle.enabled = false;
+        circleCollider.radius = radius;
     }
 
     public void Update()
     {
-        radius += growthSpeed * Time.deltaTime;
-        DrawCircle(transform.position, 100, radius);
+        if(!released)
+        {
+            holdingTime += Time.deltaTime;
+        }
+        else
+        {
+            circleCollider.radius = radius;
+            radius += growthSpeed * Time.deltaTime;
+            DrawCircle(transform.position, 100, radius);
+        }
+    }
+
+    public void Release()
+    {
+        circle.enabled = true;
+        released = true;
+        delay /= holdingTime;
+        CreateSound();
     }
 
 
@@ -42,7 +67,7 @@ public class SoundRipple : MonoBehaviour
         float[] samples = new float[finalSamples];
         for (int i = 0; i < samples.Length; i++)
         {
-            frequency -= frequency / sampleFreq / (seconds * curveFactor);
+            frequency -= (frequency / sampleFreq / seconds) * curveFactor;
             samples[i] = Mathf.Sin(Mathf.PI * 2 * i * frequency / sampleFreq);
         }
         AudioClip ac = AudioClip.Create("RippleSound", samples.Length, 1, sampleFreq, false);
@@ -56,13 +81,20 @@ public class SoundRipple : MonoBehaviour
         filter.dryMix = dry;
         filter.wetMix = wet;
         aud.Play();
+        StartCoroutine(WaitForDeathCoroutine());
+    }
+
+    private IEnumerator WaitForDeathCoroutine()
+    {
+        yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
     }
 
     public void DrawCircle(Vector3 center, int steps, float radius)
     {
         circle.positionCount = steps;
 
-        for(int i = 0; i < steps; i++)
+        for (int i = 0; i < steps; i++)
         {
             float circumferenceProgress = (float)i / steps;
             float currentRadian = circumferenceProgress * 2 * Mathf.PI;
@@ -74,4 +106,6 @@ public class SoundRipple : MonoBehaviour
             circle.SetPosition(i, currentPosition);
         }
     }
+
+
 }
