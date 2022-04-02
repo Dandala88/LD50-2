@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 108906451}
+  mousePos: {x: 0, y: 0}
 --- !u!4 &135269757
 Transform:
   m_ObjectHideFlags: 0
@@ -253,6 +254,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 88477008-af35-4fc9-aff7-7a3d0a005413
     m_ActionName: Player/Place[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 135269756}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 10df2251-7af7-4b9b-96a9-9fd405fc3b65
+    m_ActionName: Player/Move[/Mouse/position/y,/Mouse/position/y,/Mouse/position/x,/Mouse/position/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
