@@ -12,9 +12,30 @@ public class SoundRipple : MonoBehaviour
     public float decay;
     public float dry;
     public float wet;
+    public float growthSpeed;
     AudioSource aud;
+    LineRenderer circle;
+    float radius;
 
     void Awake()
+    {
+        aud = GetComponent<AudioSource>();
+        circle = GetComponentInChildren<LineRenderer>();
+    }
+
+    public void Start()
+    {
+        CreateSound();
+    }
+
+    public void Update()
+    {
+        radius += growthSpeed * Time.deltaTime;
+        DrawCircle(transform.position, 100, radius);
+    }
+
+
+    public void CreateSound()
     {
         int finalSamples = sampleFreq * seconds;
 
@@ -27,7 +48,6 @@ public class SoundRipple : MonoBehaviour
         AudioClip ac = AudioClip.Create("RippleSound", samples.Length, 1, sampleFreq, false);
         ac.SetData(samples, 0);
 
-        aud = GetComponent<AudioSource>();
         aud.clip = ac;
 
         AudioEchoFilter filter = gameObject.AddComponent<AudioEchoFilter>();
@@ -36,5 +56,22 @@ public class SoundRipple : MonoBehaviour
         filter.dryMix = dry;
         filter.wetMix = wet;
         aud.Play();
+    }
+
+    public void DrawCircle(Vector3 center, int steps, float radius)
+    {
+        circle.positionCount = steps;
+
+        for(int i = 0; i < steps; i++)
+        {
+            float circumferenceProgress = (float)i / steps;
+            float currentRadian = circumferenceProgress * 2 * Mathf.PI;
+            float xScaled = Mathf.Cos(currentRadian);
+            float yScaled = Mathf.Sin(currentRadian);
+            float x = xScaled * radius;
+            float y = yScaled * radius;
+            Vector3 currentPosition = new Vector3(x, y, 0) + center;
+            circle.SetPosition(i, currentPosition);
+        }
     }
 }

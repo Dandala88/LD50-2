@@ -8,12 +8,29 @@ public class InputManager : MonoBehaviour
 {
     public PlayerController player;
     public Vector2 mousePos;
+    public SoundRipple currentRipple;
+
+    private bool holdingPlace;
+    private float placeHoldTime;
+
+    public void Update()
+    {
+        if (holdingPlace)
+            placeHoldTime += Time.deltaTime;
+    }
 
     public void Place(CallbackContext context)
     {
         if(context.started)
         {
-            player.Place(mousePos);
+            holdingPlace = true;
+            placeHoldTime = 0;
+            currentRipple = player.Place(mousePos);
+        }
+
+        if(context.canceled)
+        {
+            holdingPlace = false;
         }
     }
 
