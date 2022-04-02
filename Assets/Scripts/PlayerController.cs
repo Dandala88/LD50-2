@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public SoundRipple soundRipple;
     public void Place()
     {
-        Debug.Log("Place");
+        SoundRipple clone = Instantiate(soundRipple);
     }
 }

@@ -8,9 +8,13 @@ public class SoundRipple : MonoBehaviour
     public float frequency = 440;
     public int seconds;
     public float curveFactor;
+    public float delay;
+    public float decay;
+    public float dry;
+    public float wet;
     AudioSource aud;
 
-    void Start()
+    void Awake()
     {
         int finalSamples = sampleFreq * seconds;
 
@@ -20,11 +24,17 @@ public class SoundRipple : MonoBehaviour
             frequency -= frequency / sampleFreq / (seconds * curveFactor);
             samples[i] = Mathf.Sin(Mathf.PI * 2 * i * frequency / sampleFreq);
         }
-        AudioClip ac = AudioClip.Create("Test", samples.Length, 1, sampleFreq, false);
+        AudioClip ac = AudioClip.Create("RippleSound", samples.Length, 1, sampleFreq, false);
         ac.SetData(samples, 0);
 
         aud = GetComponent<AudioSource>();
         aud.clip = ac;
+
+        AudioEchoFilter filter = gameObject.AddComponent<AudioEchoFilter>();
+        filter.delay = delay;
+        filter.decayRatio = decay;
+        filter.dryMix = dry;
+        filter.wetMix = wet;
         aud.Play();
     }
 }
