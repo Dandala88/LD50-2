@@ -42,4 +42,6 @@ public class InputManager : MonoBehaviour
             mousePos = context.ReadValue<Vector2>();
         }
     }
+
+
 }

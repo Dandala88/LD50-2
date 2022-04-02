@@ -8,6 +8,7 @@ public class SoundRipple : MonoBehaviour
     public float frequency = 880;
     public int seconds;
     public float curveFactor;
+    public float volumeCurve;
     public float delay;
     public float decay;
     public float dry;
@@ -20,21 +21,18 @@ public class SoundRipple : MonoBehaviour
 
     AudioSource aud;
     LineRenderer circle;
-    CircleCollider2D circleCollider;
     bool released;
     float holdingTime;
 
     void Awake()
     {
         aud = GetComponent<AudioSource>();
-        circleCollider = GetComponent<CircleCollider2D>();
         circle = GetComponentInChildren<LineRenderer>();
     }
 
     public void Start()
     {
         circle.enabled = false;
-        circleCollider.radius = radius;
     }
 
     public void Update()
@@ -45,9 +43,9 @@ public class SoundRipple : MonoBehaviour
         }
         else
         {
-            circleCollider.radius = radius;
             radius += growthSpeed * Time.deltaTime;
             DrawCircle(transform.position, 100, radius);
+            aud.volume -= Time.deltaTime * volumeCurve;
         }
     }
 
@@ -86,6 +84,7 @@ public class SoundRipple : MonoBehaviour
 
     private IEnumerator WaitForDeathCoroutine()
     {
+
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);
     }

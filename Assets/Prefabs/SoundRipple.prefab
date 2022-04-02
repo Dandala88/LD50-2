@@ -178,6 +178,7 @@ MonoBehaviour:
   frequency: 440
   seconds: 10
   curveFactor: 1
+  volumeCurve: 0.5
   delay: 300
   decay: 0.75
   dry: 1
