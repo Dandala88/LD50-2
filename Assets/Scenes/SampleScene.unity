@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1920612264}
   maxRipples: 100
-  playfieldWidth: 7.835
-  playfieldHeight: 6.857
+  playfieldWidth: 20
+  playfieldHeight: 10
   soundRipples:
   - {fileID: 6420092909380762345, guid: 50ff994c038b8eb45a219c18ebba2b2b, type: 3}
   - {fileID: 6420092909380762345, guid: 64e68edc0542f684ba57bc9fb813af23, type: 3}
