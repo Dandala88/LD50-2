@@ -10,8 +10,11 @@ public class PlayerController : MonoBehaviour
     public List<SoundRipple> soundRipples;
     public Text selectionText;
 
-    private int currentRippleIndex;
+    public int currentRippleIndex;
     private SoundRipple currentRipple;
+
+    public delegate void ChangeShapeEvent(int index);
+    public static event ChangeShapeEvent OnShapeChange;
 
     private void Start()
     {
@@ -20,6 +23,9 @@ public class PlayerController : MonoBehaviour
 
     public void Place(Vector2 pos, float freqMag, float heldTime)
     {
+        if (!GameManager.gameStart)
+            GameManager.GameStart();
+
         if (RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
 
@@ -44,5 +50,7 @@ public class PlayerController : MonoBehaviour
 
         currentRipple = soundRipples[currentRippleIndex];
         selectionText.text = currentRipple.circleSteps.ToString();
+
+        OnShapeChange.Invoke(currentRippleIndex);
     }
 }

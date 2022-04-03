@@ -91,7 +91,7 @@ public class SoundRipple : MonoBehaviour
     {
         freqMag = magnitude;
         heldTime = holdingTime;
-        growthSpeed = Mathf.Abs(magnitude * magnitudeFactor);
+        growthSpeed *= Mathf.Abs(magnitude * magnitudeFactor);
         if (magnitude == 1)
             frequency = baseFrequency;
         else

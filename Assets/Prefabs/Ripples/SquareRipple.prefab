@@ -177,7 +177,7 @@ MonoBehaviour:
   shape: 1
   sampleFreq: 44000
   frequency: 220
-  seconds: 10
+  seconds: 8
   curveFactor: 1
   volumeCurve: 0.9
   magnitudeFactor: 0.75
@@ -188,11 +188,12 @@ MonoBehaviour:
   decay: 0.75
   dry: 1
   wet: 1
-  growthSpeed: 1
+  growthSpeed: 2
   circleSteps: 4
-  rotationSpeed: 3
+  rotationSpeed: 2
   noise: 0
   noiseFrequency: 3
+  maxNoiseFactor: 0
   minHue: 1
   maxHue: 0
   minSat: 0

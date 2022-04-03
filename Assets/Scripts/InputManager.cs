@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public Vector2 mousePos;
     public float rollMagnitudeThreshold;
     public float rollCooldown;
+    public Cursor cursor;
 
     [HideInInspector]
     public SoundRipple currentRipple;
@@ -34,8 +35,11 @@ public class InputManager : MonoBehaviour
         if(context.canceled)
         {
             holdingPlace = false;
-            player.Place(mousePos, 1, holdingTime);
-            holdingTime = 0;
+            if (cursor.Clicked(mousePos))
+            {
+                player.Place(mousePos, 1, holdingTime);
+                holdingTime = 0;
+            }
         }
     }
 
@@ -54,7 +58,7 @@ public class InputManager : MonoBehaviour
             Vector2 mouseMove = context.ReadValue<Vector2>();
             if (mouseMove.magnitude > rollMagnitudeThreshold)
             {
-                if (holdingPlace && !coolingDown)
+                if (holdingPlace && !coolingDown && cursor.Clicked(mousePos))
                 {
                     player.Place(mousePos, mouseMove.y, mouseMove.x);
                     StartCoroutine(RollCooldown());

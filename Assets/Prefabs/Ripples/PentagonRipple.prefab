@@ -190,7 +190,10 @@ MonoBehaviour:
   wet: 1
   growthSpeed: 1
   circleSteps: 5
-  rotationSpeed: 3
+  rotationSpeed: 2
+  noise: 0
+  noiseFrequency: 0
+  maxNoiseFactor: 0
   minHue: 1
   maxHue: 0
   minSat: 0
