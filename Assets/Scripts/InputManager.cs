@@ -73,6 +73,14 @@ public class InputManager : MonoBehaviour
     public void Change(CallbackContext  context)
     {
         if (context.started)
-            player.ChangeShape((int)Mathf.Sign(context.ReadValue<float>()));
+            player.ChangeShape(-(int)Mathf.Sign(context.ReadValue<float>()));
+    }
+
+    public void ChangeKey(CallbackContext context)
+    {
+        if(context.started)
+        {
+            player.ChangeShape(1);
+        }
     }
 }

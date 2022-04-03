@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class RippleManager : MonoBehaviour
 {
+    private static int maxRipples = 7;
+
+    public static int MaxRipples
+    {
+        get { return maxRipples; }
+        set 
+        { 
+            if(maxRipples + value < 100)
+                maxRipples = value; 
+        }
+    }
+
     public static List<SoundRipple> ripples = new List<SoundRipple>();
 
     public static List<Vector3> vertices = new List<Vector3>();

@@ -8,12 +8,12 @@ public class Bell : Interactive
 
     
 
-    public override void Interact(SoundRipple ripple)
+    public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
         SoundRipple clone = Instantiate(soundRipple);
         clone.transform.position = transform.position;
         clone.Release(ripple.freqMag, ripple.heldTime);
-        base.Interact(ripple);
+        base.Interact(ripple, shape);
         Destroy(gameObject);
     }
 }

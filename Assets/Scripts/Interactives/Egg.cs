@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Egg : Interactive
 {
-    public override void Interact(SoundRipple ripple)
+    public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
+        base.Interact(ripple, shape);
         Destroy(ripple.gameObject);
     }
 }

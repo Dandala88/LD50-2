@@ -7,7 +7,7 @@ public class Fork : Interactive
     public SoundRipple soundRipple;
     public float width;
     public float changeFrequency;
-    public override void Interact(SoundRipple ripple)
+    public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
         SoundRipple clone1 = Instantiate(soundRipple);
         clone1.transform.position = transform.position + new Vector3(-width, 0f);

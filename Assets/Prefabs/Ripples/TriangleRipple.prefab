@@ -174,10 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ba8218615d5494fb8588cdbf547eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shape: 0
   sampleFreq: 44000
-  frequency: 1020
+  frequency: 200
   seconds: 10
-  curveFactor: 1
+  curveFactor: 0.1
   volumeCurve: 0.5
   magnitudeFactor: 0.75
   delayHoldFactor: 0
@@ -189,7 +190,7 @@ MonoBehaviour:
   wet: 1
   growthSpeed: 1
   circleSteps: 3
-  rotationSpeed: 10
+  rotationSpeed: 3
   minHue: 1
   maxHue: 0
   minSat: 0

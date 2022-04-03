@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float playfieldWidth;
     public float playfieldHeight;
     public List<SoundRipple> soundRipples;
+    public Text selectionText;
 
     private int currentRippleIndex;
     private SoundRipple currentRipple;
@@ -18,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public void Place(Vector2 pos, float freqMag, float heldTime)
     {
-        if (RippleManager.ripples.Count < maxRipples)
+        if (RippleManager.ripples.Count < RippleManager.maxRipples)
         {
 
             Vector3 finalPos = new Vector3(pos.x, pos.y, 1f);
@@ -34,7 +36,13 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeShape(int direction)
     {
-        currentRippleIndex = Mathf.Clamp(currentRippleIndex + direction, 0, soundRipples.Count - 1);
+        currentRippleIndex += direction;
+        if(currentRippleIndex >= soundRipples.Count)
+            currentRippleIndex = 0;
+        if (currentRippleIndex < 0)
+            currentRippleIndex = soundRipples.Count - 1;
+
         currentRipple = soundRipples[currentRippleIndex];
+        selectionText.text = currentRipple.circleSteps.ToString();
     }
 }

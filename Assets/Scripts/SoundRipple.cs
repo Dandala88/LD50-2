@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundRipple : MonoBehaviour
 {
+    public Shape shape;
     public int sampleFreq = 44000;
     public float frequency = 440;
     public int seconds;
@@ -20,6 +21,9 @@ public class SoundRipple : MonoBehaviour
     public float growthSpeed;
     public int circleSteps = 100;
     public float rotationSpeed;
+    public bool noise;
+    public int noiseFrequency;
+    public int maxNoiseFactor;
     [Header("Random Color")]
     [Range(0f, 1f)]
     public float minHue;
@@ -40,6 +44,14 @@ public class SoundRipple : MonoBehaviour
     public float freqMag;
     [HideInInspector]
     public float heldTime;
+
+    public enum Shape
+    {
+        Triangle = 3,
+        Square = 2,
+        Pentagon = 1,
+        Circle = 0
+    }
 
     AudioSource aud;
     LineRenderer circle;
@@ -64,7 +76,7 @@ public class SoundRipple : MonoBehaviour
         {
             if(Vector2.Distance(transform.position, interactive.transform.position) < radius)
             {
-                interactive.Interact(this);
+                interactive.Interact(this, shape);
             }
         }
     }
@@ -99,7 +111,12 @@ public class SoundRipple : MonoBehaviour
         for (int i = 0; i < samples.Length; i++)
         {
             frequency -= (frequency / sampleFreq / seconds) * curveFactor;
-            samples[i] = Mathf.Sin(Mathf.PI * 2 * i * frequency / sampleFreq);
+            float noiseFactor = 1;
+            if (noise && i % noiseFrequency == 0)
+            {
+                noiseFactor = Random.Range(baseFrequency - maxNoiseFactor, maxNoiseFactor);
+            }
+            samples[i] = Mathf.Sin(Mathf.PI * 2 * i * (noiseFactor * frequency) / sampleFreq);
         }
         AudioClip ac = AudioClip.Create("RippleSound", samples.Length, 1, sampleFreq, false);
         ac.SetData(samples, 0);
@@ -115,7 +132,8 @@ public class SoundRipple : MonoBehaviour
     }
 
     private IEnumerator WaitForDeathCoroutine()
-    {yield return new WaitForSeconds(seconds);
+    {
+        yield return new WaitForSeconds(seconds);
         RippleManager.ripples.Remove(this);
         Destroy(gameObject);
     }
@@ -158,5 +176,43 @@ public class SoundRipple : MonoBehaviour
     private void OnDestroy()
     {
         RippleManager.ripples.Remove(this);
+    }
+
+    public static SoundRipple.Shape GetShapeFromInt(int index)
+    {
+        while (index > 3)
+            index -= 3;
+
+        switch (index)
+        {
+            case 0:
+                return SoundRipple.Shape.Circle;
+            case 1:
+                return SoundRipple.Shape.Pentagon;
+            case 2:
+                return SoundRipple.Shape.Square;
+            case 3:
+                return SoundRipple.Shape.Triangle;
+            default:
+                return SoundRipple.Shape.Circle;
+        }
+    }
+
+    public static int GetIntFromShape(SoundRipple.Shape shape)
+    {
+
+        switch (shape)
+        {
+            case SoundRipple.Shape.Circle:
+                return 0;
+            case SoundRipple.Shape.Pentagon:
+                return 1;
+            case SoundRipple.Shape.Square:
+                return 2;
+            case SoundRipple.Shape.Triangle:
+                return 3;
+            default:
+                return 0;
+        }
     }
 }

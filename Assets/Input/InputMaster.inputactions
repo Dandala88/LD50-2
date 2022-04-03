@@ -11,7 +11,8 @@
                     "id": "88477008-af35-4fc9-aff7-7a3d0a005413",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -19,7 +20,8 @@
                     "id": "10df2251-7af7-4b9b-96a9-9fd405fc3b65",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Roll",
@@ -27,7 +29,8 @@
                     "id": "d74b42e7-b791-417c-8443-57e84b53f46b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Change",
@@ -35,7 +38,17 @@
                     "id": "b9f59634-4513-487f-b511-5ab0aeb3c633",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Change Key",
+                    "type": "Button",
+                    "id": "17507533-ecc6-4374-8b64-33a7373f9ffc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -80,6 +93,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Change",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70c8eb39-f9c7-44d6-8aa2-a967bb8c188b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Key",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
