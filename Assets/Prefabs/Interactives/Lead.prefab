@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3902652283272883453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.6968136, y: -0.53, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   - {fileID: 6420092909380762345, guid: 795a1d249d0af1542845779ceac27a96, type: 3}
   - {fileID: 6420092909380762345, guid: eccc26edd1690674b86c699dc58b920c, type: 3}
   cooldown: 1
+  increaseMaxRipplesBy: 0
   seconds: 2
   frequencyMultiplier: 3
   growthSpeedMultiplier: 0.1
