@@ -32,7 +32,7 @@ public class Interactive : MonoBehaviour
                 break;
         }
         if (!alreadyIncreased)
-            RippleManager.maxRipples += increaseMaxRipplesBy;
+            RippleManager.MaxRipples += increaseMaxRipplesBy;
         else
             alreadyIncreased = true;
     }

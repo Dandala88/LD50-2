@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class RippleManager : MonoBehaviour
 {
-    private static int maxRipples = 7;
+    public static int numRipples = 7;
+    private static int maxRipples = 33;
 
     public static int MaxRipples
     {
-        get { return maxRipples; }
+        get { return numRipples; }
         set 
         { 
-            if(maxRipples + value < 100)
-                maxRipples = value; 
+            if(value < maxRipples)
+                numRipples = value; 
         }
     }
 

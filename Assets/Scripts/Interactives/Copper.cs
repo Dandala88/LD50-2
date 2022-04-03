@@ -9,7 +9,7 @@ public class Copper : Interactive
     public float growthSpeedMultiplier;
     public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
-        if (cooled && RippleManager.ripples.Count < RippleManager.maxRipples)
+        if (cooled && RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
             shape = SoundRipple.GetShapeFromInt((int)shape + 1);
             base.Interact(ripple, shape);

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public void Place(Vector2 pos, float freqMag, float heldTime)
     {
-        if (RippleManager.ripples.Count < RippleManager.maxRipples)
+        if (RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
 
             Vector3 finalPos = new Vector3(pos.x, pos.y, 1f);

@@ -7,7 +7,7 @@ public class Iron : Interactive
     public float percentToDestroy; 
     public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
-        if (cooled && RippleManager.ripples.Count < RippleManager.maxRipples)
+        if (cooled && RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
             base.Interact(ripple, shape);
             int numToDestroy = Mathf.RoundToInt(RippleManager.ripples.Count * percentToDestroy);

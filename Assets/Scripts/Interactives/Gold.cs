@@ -14,7 +14,7 @@ public class Gold : Interactive
 
     public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
-        if (cooled && RippleManager.ripples.Count < RippleManager.maxRipples)
+        if (cooled && RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
             base.Interact(ripple, shape);
             StartCoroutine(GoldSequence(ripple, shape, transform.position, sections));

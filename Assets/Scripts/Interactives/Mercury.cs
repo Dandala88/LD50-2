@@ -10,7 +10,7 @@ public class Mercury : Interactive
     public float growthSpeedMultiplier;
     public override void Interact(SoundRipple ripple, SoundRipple.Shape shape)
     {
-        if (cooled && RippleManager.ripples.Count < RippleManager.maxRipples)
+        if (cooled && RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
             base.Interact(ripple, shape);
             SoundRipple clone = Instantiate(Replicate(shape));
