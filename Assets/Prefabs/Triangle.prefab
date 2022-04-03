@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 6420092909380762345}
   - component: {fileID: 6420092909380762346}
   m_Layer: 0
-  m_Name: SoundRipple
+  m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,14 +180,15 @@ MonoBehaviour:
   curveFactor: 1
   volumeCurve: 0.5
   magnitudeFactor: 0.75
-  minDelay: 100
+  minDelay: 50
   maxDelay: 3000
   delay: 3000
   decay: 0.75
   dry: 1
   wet: 1
   growthSpeed: 1
-  circleSteps: 100
+  circleSteps: 3
+  rotationSpeed: 10
   radius: 0
 --- !u!82 &6420092909380762346
 AudioSource:

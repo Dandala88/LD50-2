@@ -18,13 +18,19 @@ public class SoundRipple : MonoBehaviour
     public float wet;
     public float growthSpeed;
     public int circleSteps = 100;
+    public float rotationSpeed;
 
     [HideInInspector]
     public float radius;
+    [HideInInspector]
+    public float freqMag;
+    [HideInInspector]
+    public float heldTime;
 
     AudioSource aud;
     LineRenderer circle;
     float baseFrequency;
+    private float rotateBy;
 
     void Awake()
     {
@@ -38,13 +44,22 @@ public class SoundRipple : MonoBehaviour
     public void Update()
     {
         radius += growthSpeed * Time.deltaTime;
-        DrawCircle(transform.position, 100, radius);
+        DrawCircle(transform.position, circleSteps, radius);
         aud.volume -= Time.deltaTime / (seconds * volumeCurve);
+        foreach(Interactive interactive in RippleManager.interactives)
+        {
+            if(Vector2.Distance(transform.position, interactive.transform.position) < radius)
+            {
+                interactive.Interact(this);
+            }
+        }
     }
 
     public void Release(float magnitude, float holdingTime)
     {
-        growthSpeed = magnitude * magnitudeFactor;
+        freqMag = magnitude;
+        heldTime = holdingTime;
+        growthSpeed = Mathf.Abs(magnitude * magnitudeFactor);
         if (magnitude == 1)
             frequency = baseFrequency;
         else
@@ -89,10 +104,11 @@ public class SoundRipple : MonoBehaviour
     {
         circle.positionCount = steps;
 
+        rotateBy += rotationSpeed * Time.deltaTime;
         for (int i = 0; i < steps; i++)
         {
             float circumferenceProgress = (float)i / steps;
-            float currentRadian = circumferenceProgress * 2 * Mathf.PI;
+            float currentRadian = circumferenceProgress * 2 * Mathf.PI + rotateBy;
             float xScaled = Mathf.Cos(currentRadian);
             float yScaled = Mathf.Sin(currentRadian);
             float x = xScaled * radius;
@@ -119,5 +135,8 @@ public class SoundRipple : MonoBehaviour
         return randGradient;
     }
 
-
+    private void OnDestroy()
+    {
+        RippleManager.ripples.Remove(this);
+    }
 }

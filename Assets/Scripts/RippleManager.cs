@@ -7,5 +7,7 @@ public class RippleManager : MonoBehaviour
     public static List<SoundRipple> ripples = new List<SoundRipple>();
 
     public static List<Vector3> vertices = new List<Vector3>();
+
+    public static List<Interactive> interactives = new List<Interactive>();
 }
 
