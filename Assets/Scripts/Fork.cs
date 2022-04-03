@@ -6,6 +6,7 @@ public class Fork : Interactive
 {
     public SoundRipple soundRipple;
     public float width;
+    public float changeFrequency;
     public override void Interact(SoundRipple ripple)
     {
         SoundRipple clone1 = Instantiate(soundRipple);
@@ -14,7 +15,7 @@ public class Fork : Interactive
 
         SoundRipple clone2 = Instantiate(soundRipple);
         clone2.transform.position = transform.position + new Vector3(width, 0f); ;
-        clone2.Release(ripple.freqMag, ripple.heldTime);
+        clone2.Release(ripple.freqMag, ripple.heldTime, changeFrequency);
 
         Destroy(gameObject);
     }

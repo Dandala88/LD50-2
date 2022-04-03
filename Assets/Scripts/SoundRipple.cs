@@ -10,6 +10,7 @@ public class SoundRipple : MonoBehaviour
     public float curveFactor;
     public float volumeCurve;
     public float magnitudeFactor;
+    public float delayHoldFactor;
     public float minDelay;
     public float maxDelay;
     public float delay;
@@ -19,6 +20,19 @@ public class SoundRipple : MonoBehaviour
     public float growthSpeed;
     public int circleSteps = 100;
     public float rotationSpeed;
+    [Header("Random Color")]
+    [Range(0f, 1f)]
+    public float minHue;
+    [Range(0f, 1f)]
+    public float maxHue;
+    [Range(0f, 1f)]
+    public float minSat;
+    [Range(0f, 1f)]
+    public float maxSat;
+    [Range(0f, 1f)]
+    public float minVal;
+    [Range(0f, 1f)]
+    public float maxVal;
 
     [HideInInspector]
     public float radius;
@@ -55,9 +69,9 @@ public class SoundRipple : MonoBehaviour
         }
     }
 
-    public void Release(float magnitude, float holdingTime, float newFrequency)
+    public void Release(float magnitude, float holdingTime, float frequencyChange)
     {
-        frequency = newFrequency;
+        baseFrequency *= frequencyChange;
         Release(magnitude, holdingTime);
     }
 
@@ -70,7 +84,7 @@ public class SoundRipple : MonoBehaviour
             frequency = baseFrequency;
         else
             frequency = baseFrequency * magnitude * magnitudeFactor;
-        delay = Mathf.Clamp(delay / holdingTime, minDelay, maxDelay);
+        delay = Mathf.Clamp(delay / (holdingTime * delayHoldFactor), minDelay, maxDelay);
         CreateSound();
     }
 
@@ -128,7 +142,7 @@ public class SoundRipple : MonoBehaviour
     {
         Gradient randGradient = new Gradient();
         GradientColorKey[] cKeys = new GradientColorKey[2];
-        cKeys[0].color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        cKeys[0].color = Random.ColorHSV(minHue, maxHue, minSat, maxSat, minVal, maxVal);
         cKeys[0].time = 0f;
         cKeys[1].color = cKeys[0].color;
         cKeys[1].time = 1f;

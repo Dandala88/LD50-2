@@ -156,7 +156,9 @@ MonoBehaviour:
   maxRipples: 100
   playfieldWidth: 7.835
   playfieldHeight: 6.857
-  baseFrequency: 440
+  soundRipples:
+  - {fileID: 6420092909380762345, guid: 50ff994c038b8eb45a219c18ebba2b2b, type: 3}
+  - {fileID: 6420092909380762345, guid: eccc26edd1690674b86c699dc58b920c, type: 3}
 --- !u!4 &108906452
 Transform:
   m_ObjectHideFlags: 0
@@ -293,6 +295,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d74b42e7-b791-417c-8443-57e84b53f46b
     m_ActionName: Player/Roll[/Mouse/delta/y,/Mouse/delta/y,/Mouse/delta/x,/Mouse/delta/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 135269756}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Change
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b9f59634-4513-487f-b511-5ab0aeb3c633
+    m_ActionName: Player/Change[/Mouse/scroll/x,/Mouse/scroll/y]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -676,8 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58044190ae65dd141b8ec90f7a9dfc47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
-  frequencyRange: 0.1
+  frequency: 0.5
+  frequencyRange: 0.25
   player: {fileID: 108906451}
   minSpeed: 1
   maxSpeed: 2

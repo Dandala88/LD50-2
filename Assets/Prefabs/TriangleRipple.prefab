@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 6420092909380762345}
   - component: {fileID: 6420092909380762346}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: TriangleRipple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,21 +175,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleFreq: 44000
-  frequency: 880
+  frequency: 1020
   seconds: 10
   curveFactor: 1
   volumeCurve: 0.5
   magnitudeFactor: 0.75
+  delayHoldFactor: 0
   minDelay: 50
-  maxDelay: 3000
-  delay: 3000
+  maxDelay: 1000
+  delay: 1000
   decay: 0.75
   dry: 1
   wet: 1
   growthSpeed: 1
   circleSteps: 3
   rotationSpeed: 10
+  minHue: 1
+  maxHue: 0
+  minSat: 0
+  maxSat: 1
+  minVal: 0.9
+  maxVal: 1
   radius: 0
+  freqMag: 0
+  heldTime: 0
 --- !u!82 &6420092909380762346
 AudioSource:
   m_ObjectHideFlags: 0

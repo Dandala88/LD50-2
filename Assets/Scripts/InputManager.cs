@@ -69,4 +69,10 @@ public class InputManager : MonoBehaviour
         yield return new WaitForSeconds(rollCooldown);
         coolingDown = false;
     }
+
+    public void Change(CallbackContext  context)
+    {
+        if (context.started)
+            player.ChangeShape((int)Mathf.Sign(context.ReadValue<float>()));
+    }
 }

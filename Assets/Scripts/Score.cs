@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    public static int total;
+    public static float total;
 
     Text text;
 
@@ -16,13 +16,8 @@ public class Score : MonoBehaviour
 
     private void Update()
     {
-        text.text = total.ToString();
-    }
-
-    public static void Subtract()
-    {
-        if (total > 0)
-            total--;
+        total += Time.deltaTime;
+        text.text = Mathf.RoundToInt(total).ToString();
     }
 
 }

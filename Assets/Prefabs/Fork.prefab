@@ -97,3 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundRipple: {fileID: 6420092909380762345, guid: 50ff994c038b8eb45a219c18ebba2b2b, type: 3}
   width: 2
+  changeFrequency: 0.5
