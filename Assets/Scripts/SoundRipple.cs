@@ -55,6 +55,12 @@ public class SoundRipple : MonoBehaviour
         }
     }
 
+    public void Release(float magnitude, float holdingTime, float newFrequency)
+    {
+        frequency = newFrequency;
+        Release(magnitude, holdingTime);
+    }
+
     public void Release(float magnitude, float holdingTime)
     {
         freqMag = magnitude;

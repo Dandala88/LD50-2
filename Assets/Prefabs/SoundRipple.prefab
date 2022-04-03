@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleFreq: 44000
-  frequency: 880
+  frequency: 440
   seconds: 10
   curveFactor: 1
   volumeCurve: 0.5
@@ -188,7 +188,10 @@ MonoBehaviour:
   wet: 1
   growthSpeed: 1
   circleSteps: 100
+  rotationSpeed: 0
   radius: 0
+  freqMag: 0
+  heldTime: 0
 --- !u!82 &6420092909380762346
 AudioSource:
   m_ObjectHideFlags: 0

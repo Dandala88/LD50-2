@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public int maxRipples;
     public float playfieldWidth;
     public float playfieldHeight;
+    public int baseFrequency;
 
     public void Place(Vector2 pos, float freqMag, float heldTime)
     {
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
             {
                 SoundRipple clone = Instantiate(soundRipple);
                 clone.transform.position = Camera.main.ScreenToWorldPoint(finalPos);
-                clone.Release(freqMag, heldTime);
+                clone.Release(freqMag, heldTime, baseFrequency);
             }
         }
     }
