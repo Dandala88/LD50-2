@@ -32,16 +32,23 @@ public class InteractiveSpawner : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnStartGame += OnGameStart;
+        GameManager.OnEndGame += OnGameEnd;
     }
 
     private void OnDisable()
     {
         GameManager.OnStartGame -= OnGameStart;
+        GameManager.OnEndGame -= OnGameEnd;
     }
 
     public void OnGameStart()
     {
         StartCoroutine(SpawnCoroutine(5, 0));
+    }
+
+    public void OnGameEnd()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator WaveCoroutine()

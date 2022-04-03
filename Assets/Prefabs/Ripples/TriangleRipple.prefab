@@ -189,6 +189,7 @@ MonoBehaviour:
   dry: 1
   wet: 1
   growthSpeed: 3
+  growthSpeedScale: 0.01
   circleSteps: 3
   rotationSpeed: 3
   noise: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cursor : MonoBehaviour
 {
+    public Camera cam;
     public float rotateX;
     public float rotateY;
     public float rotateZ;
@@ -29,6 +30,7 @@ public class Cursor : MonoBehaviour
     public float maxVal;
 
     private bool grabbed;
+    private Vector3 startPos;
 
     private void Awake()
     {
@@ -37,11 +39,17 @@ public class Cursor : MonoBehaviour
         currentMeshFilterIndex = startingMeshFilter;
         meshFilter.mesh = meshList[currentMeshFilterIndex].sharedMesh;
     }
+
+    public void Start()
+    {
+        startPos = transform.position;
+    }
+
     public void Update()
     {
         if (grabbed)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(inputManager.mousePos);
+            Vector3 mousePos = cam.ScreenToWorldPoint(inputManager.mousePos);
             Vector3 finalMousePos = new Vector3(mousePos.x, mousePos.y, 1f);
             transform.position = finalMousePos;
         }
@@ -51,7 +59,7 @@ public class Cursor : MonoBehaviour
 
     public bool Clicked(Vector3 mousePosSent)
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(mousePosSent);
+        Vector3 mousePos = cam.ScreenToWorldPoint(mousePosSent);
         Vector3 finalMousePos = new Vector3(mousePos.x, mousePos.y, 1f);
         if (Vector3.Distance(finalMousePos, transform.position) < clickDistance)
         {
@@ -64,11 +72,26 @@ public class Cursor : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.OnShapeChange += ChangeShape;
+        GameManager.OnStartGame += OnGameStart;
+        GameManager.OnEndGame += OnGameEnd;
     }
 
     private void OnDisable()
     {
         PlayerController.OnShapeChange -= ChangeShape;
+        GameManager.OnStartGame -= OnGameStart;
+        GameManager.OnEndGame -= OnGameEnd;
+    }
+
+    public void OnGameStart()
+    {
+    }
+
+    public void OnGameEnd()
+    {
+        transform.position = startPos;
+        UnityEngine.Cursor.visible = true;
+        grabbed = false;
     }
 
     public void ChangeShape(int index)
