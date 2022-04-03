@@ -31,6 +31,7 @@ public class Tin : Interactive
     {
         SoundRipple clone = Instantiate(Replicate(shape));
         clone.transform.position = position;
+        clone.transform.SetParent(transform.parent);
         clone.noise = true;
         clone.noiseFrequency = noiseFrequency;
         clone.maxNoiseFactor = maxNoiseFactor;

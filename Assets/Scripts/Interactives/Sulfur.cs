@@ -12,6 +12,7 @@ public class Sulfur : Interactive
             base.Interact(ripple, shape);
             SoundRipple clone = Instantiate(Replicate(shape));
             clone.transform.position = transform.position;
+            clone.transform.SetParent(transform.parent);
             clone.noise = true;
             clone.noiseFrequency = noiseFrequency;
             clone.Release(ripple.freqMag, ripple.heldTime);

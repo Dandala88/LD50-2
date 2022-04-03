@@ -14,6 +14,7 @@ public class Copper : Interactive
             shape = SoundRipple.GetShapeFromInt((int)shape + 1);
             base.Interact(ripple, shape);
             SoundRipple clone = Instantiate(Replicate(shape));
+            clone.transform.SetParent(transform.parent);
             clone.transform.position = transform.position;
             clone.seconds = seconds;
             clone.frequency *= frequencyMultiplier;

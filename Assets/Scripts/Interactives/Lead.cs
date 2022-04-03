@@ -14,6 +14,7 @@ public class Lead : Interactive
         {
             base.Interact(ripple, shape);
             SoundRipple clone = Instantiate(Replicate(shape));
+            clone.transform.SetParent(transform.parent);
             clone.transform.position = transform.position - moveDirection;
             clone.seconds = seconds;
             clone.frequency *= frequencyMultiplier;

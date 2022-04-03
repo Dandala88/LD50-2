@@ -16,6 +16,7 @@ public class Iron : Interactive
                 Destroy(RippleManager.ripples[i].gameObject);
             }
             SoundRipple clone = Instantiate(Replicate(shape));
+            clone.transform.SetParent(transform.parent);
             clone.transform.position = transform.position;
             clone.noise = true;
             clone.noiseFrequency = 1;

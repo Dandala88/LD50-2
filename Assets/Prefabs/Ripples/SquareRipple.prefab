@@ -180,7 +180,7 @@ MonoBehaviour:
   seconds: 8
   curveFactor: 1
   volumeCurve: 0.9
-  magnitudeFactor: 0.75
+  magnitudeFactor: 0.5
   delayHoldFactor: 2
   minDelay: 50
   maxDelay: 1000
@@ -188,7 +188,7 @@ MonoBehaviour:
   decay: 0.75
   dry: 1
   wet: 1
-  growthSpeed: 1
+  growthSpeed: 2
   circleSteps: 4
   rotationSpeed: 2
   noise: 0

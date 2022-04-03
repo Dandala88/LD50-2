@@ -36,6 +36,7 @@ public class Gold : Interactive
     private void GoldReplicate(SoundRipple ripple, SoundRipple.Shape shape, Vector3 position)
     {
         SoundRipple clone = Instantiate(Replicate(shape));
+        clone.transform.SetParent(transform.parent);
         clone.transform.position = position;
         clone.curveFactor = curveFactor;
         clone.seconds = seconds;

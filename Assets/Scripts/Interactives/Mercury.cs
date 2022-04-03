@@ -14,6 +14,7 @@ public class Mercury : Interactive
         {
             base.Interact(ripple, shape);
             SoundRipple clone = Instantiate(Replicate(shape));
+            clone.transform.SetParent(transform.parent);
             clone.transform.position = transform.position;
             clone.seconds *= secondsMultiplier;
             clone.frequency *= frequencyMultiplier;
