@@ -177,10 +177,10 @@ MonoBehaviour:
   shape: 1
   sampleFreq: 44000
   frequency: 220
-  seconds: 8
+  seconds: 3
   curveFactor: 1
   volumeCurve: 0.9
-  magnitudeFactor: 0.5
+  magnitudeFactor: 0.33
   delayHoldFactor: 2
   minDelay: 50
   maxDelay: 1000

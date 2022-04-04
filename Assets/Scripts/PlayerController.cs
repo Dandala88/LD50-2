@@ -25,7 +25,9 @@ public class PlayerController : MonoBehaviour
     public void Place(Vector2 pos, float freqMag, float heldTime)
     {
         if (!GameManager.gameStart)
+        {
             GameManager.GameStart();
+        }
 
         if (RippleManager.ripples.Count < RippleManager.MaxRipples)
         {
