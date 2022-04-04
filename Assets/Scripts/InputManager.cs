@@ -87,4 +87,13 @@ public class InputManager : MonoBehaviour
             player.ChangeShape(1);
         }
     }
+
+    public void Quit(CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            Debug.Log("Quit");
+            Application.Quit();
+        }
+    }
 }
